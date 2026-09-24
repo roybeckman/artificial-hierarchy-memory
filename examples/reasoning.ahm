@@ -1,0 +1,31 @@
+INSTRUCTIONS
+Read the local status hierarchy before drawing conclusions.
+Use the relation chain, not isolated statements.
+
+DESCRIPTION
+Domain: Contract reasoning example
+
+KEY
+O = OBJECT
+R = RELATION
+T1 = BINDING
+T2 = GUIDING
+T3 = DISPUTED
+
+OBJECTS
+O001::CONTRACT_CLAUSE
+O002::STATUTORY_RULE
+O003::PRECEDENT
+O004::CONCLUSION
+
+RELATIONS
+R001:F=O002;T=O001;Y=LIMITS;S=T1;
+R002:F=O003;T=O001;Y=INTERPRETS;S=T2;
+R003:F=O001;T=O004;Y=SUPPORTS;S=T2;
+
+VALIDATION
+RULE::Before relying on a precedent, check whether another relation limits, distinguishes, or overturns it.
+RULE::Do not convert a disputed interpretation into a binding rule.
+
+CONCLUSION
+CONCLUSION::Follow the complete relation chain and preserve the declared status hierarchy.

@@ -1,0 +1,95 @@
+AHM 1.0 — MAP SKELETON TEMPLATE
+Created by Roy Beckman, 2026
+
+PURPOSE
+This file is a visible AHM skeleton. It shows the AI — and the human reader — the map of the information before the details.
+
+CORE IDEA
+THE FILE TEACHES THE AI HOW TO READ THE FILE.
+STRUCTURE GUIDES THE AI.
+LANGUAGE CARRIES THE MEANING.
+KEEP THE MEANING. REMOVE THE FLUFF.
+
+======================================================================
+AHM MAP
+======================================================================
+
+[1] WHAT IS THIS? → DESCRIPTION
+[2] HOW SHOULD IT BE READ? → INSTRUCTIONS → KEY / FIELD_DICTIONARY / RELKEY
+[3] WHAT EXISTS? → OBJECTS / ENTITIES / NODES
+[4] WHAT IS KNOWN? → FACTS / DATA / KNOWLEDGE
+[5] HOW DOES IT CONNECT? → RELATIONS
+[6] WHAT IS TRUE NOW? → STATE
+[7] WHAT IS UNCERTAIN, HISTORICAL OR UNRESOLVED? → STATUS / MEMORY / SOURCES
+[8] WHAT SHOULD HAPPEN NEXT? → NEXT / ACTIONS
+[9] WHERE ARE THE DETAILS? → INFORMATION_BANK / DOMAIN_DATA
+[10] HOW DO WE CHECK IT? → VALIDATION / VERIFY
+
+======================================================================
+READ_ORDER
+======================================================================
+DESCRIPTION → INSTRUCTIONS → KEY → OBJECTS → FACTS → RELATIONS → STATE → NEXT → INFORMATION_BANK → VALIDATION
+
+======================================================================
+DESCRIPTION
+======================================================================
+PROJECT_OR_DOMAIN:: <name>
+PURPOSE:: <what this file represents>
+CURRENT_SCOPE:: <what is included>
+NOT_INCLUDED:: <what is deliberately outside this file>
+
+======================================================================
+INSTRUCTIONS
+======================================================================
+1. Read DESCRIPTION first.
+2. Read KEY before interpreting compact codes.
+3. Reconstruct objects and identities before drawing conclusions.
+4. Follow explicit relations.
+5. Preserve current, historical, uncertain and unresolved information.
+6. Do not invent missing information.
+7. Use STATE to understand the current situation.
+8. Use NEXT to continue the work.
+9. Preserve unknown local constructs even if they are not part of the common AHM core.
+
+======================================================================
+KEY
+======================================================================
+P = PROJECT
+O = OBJECT / ENTITY
+F = FACT
+R = RELATION
+S = STATE
+N = NEXT
+K = KNOWLEDGE
+A = ACTION
+V = VERIFIED
+CUR = CURRENT
+OLD = HISTORICAL_OR_SUPERSEDED
+M = MEMORY_ONLY
+U = UNRESOLVED
+SRC = SOURCE
+LOCAL_KEYS:: <define domain-specific codes here>
+
+======================================================================
+OBJECTS / FACTS / RELATIONS / STATE / NEXT
+======================================================================
+O:<ID>:<NAME_OR_ROLE>
+F:<SUBJECT>:<PROPERTY>=<VALUE>:<STATUS>:<SOURCE>
+R:<SOURCE_ID>><TARGET_ID>:<RELATION_TYPE>
+S:<SUBJECT>=<CURRENT_STATE>
+N:<next action>
+
+======================================================================
+VALIDATION / VERIFY
+======================================================================
+CHECK.001:: All important objects have stable IDs.
+CHECK.002:: Important relationships are explicit.
+CHECK.003:: Unknown information remains unknown.
+CHECK.004:: STATE describes the current situation.
+CHECK.005:: NEXT contains only unfinished actions.
+CHECK.006:: Local codes are defined before they are relied upon.
+CHECK.007:: The file can be understood without a separate manual.
+
+======================================================================
+END MAP
+======================================================================

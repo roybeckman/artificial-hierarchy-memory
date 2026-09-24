@@ -1,0 +1,28 @@
+INSTRUCTIONS
+This is an Artificial Hierarchy Memory (AHM) file.
+Read KEY, reconstruct the project, apply new information, and continue from NEXT.
+Do not invent missing values.
+
+DESCRIPTION
+Project: SENSOR-1
+Phase: Qualification
+
+KEY
+O = OBJECT
+F = FACT
+R = RELATION
+S = STATE
+N = NEXT
+V = VERIFIED
+U = UNRESOLVED
+
+MEMORY
+O:CTRL:Controller
+O:BAT:Battery
+R:BAT>CTRL:POWERS
+F:BAT:NOMINAL_VOLTAGE=24V:V
+F:BAT:SERIAL_NUMBER=:U
+S:CTRL=INSTALLED
+S:BAT=INSTALLED
+S:PROJECT=QUALIFICATION
+N:VERIFY_BATTERY_CAPACITY

@@ -1,0 +1,40 @@
+INSTRUCTIONS
+Create the image from this AHM structure.
+Treat the defined objects, relations, constraints, and verification checks as required.
+Do not add extra primary objects.
+
+DESCRIPTION
+Scene: Five-gear technical demonstration
+
+KEY
+O = OBJECT
+R = RELATION
+C = CONSTRAINT
+V = VERIFY
+
+OBJECTS
+O:G1:Large_Gear
+O:G2:Small_Gear
+O:G3:Large_Gear
+O:G4:Small_Gear
+O:G5:Large_Gear
+
+RELATIONS
+R:G1>G2:MESHES_WITH
+R:G2>G3:MESHES_WITH
+R:G3>G4:MESHES_WITH
+R:G4>G5:MESHES_WITH
+
+COMPOSITION
+G1 is leftmost.
+G5 is rightmost.
+All five gears form one visible horizontal chain.
+
+CONSTRAINTS
+C::GEAR_COUNT=5
+C::NO_EXTRA_GEARS
+C::ALL_FIVE_GEARS_VISIBLE
+
+VERIFY
+V::COUNT_GEARS=5
+V::CHECK_CHAIN=G1>G2>G3>G4>G5

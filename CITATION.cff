@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "If you use AHM, please cite it using the metadata in this file. Documentation is CC BY 4.0; the Python parser is MIT licensed."
+title: "AHM — Artificial Hierarchy Memory"
+type: software
+authors:
+  - family-names: Beckman
+    given-names: Roy
+version: "1.0"
+date-released: 2026-09-24
+abstract: "A self-describing structured plain-text language for AI-to-AI semantic handoff, continuation, knowledge structure, reasoning, and control."
