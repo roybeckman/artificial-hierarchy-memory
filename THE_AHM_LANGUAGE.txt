@@ -1,0 +1,1224 @@
+### THE AHM LANGUAGE ###
+Artificial Hierarchy Memory · Self-Describing Core · v1.0
+
+AHM VERSION:: SELF-DESCRIBING-CORE-1.0
+FORMAT:: AHM-TXT
+STATUS:: REFERENCE_BOOK
+PURPOSE:: Define the simple AHM language used for AI-readable, self-describing, portable project and knowledge files.
+
+======================================================================
+1. AHM INSTRUCTION & EXECUTION RULES
+======================================================================
+
+RULE.001:: Read the file from top to bottom unless READ_ORDER says otherwise.
+RULE.002:: Read INSTRUCTION before interpreting domain data.
+RULE.003:: Expand KEY, RELKEY and local field definitions before reasoning.
+RULE.004:: Preserve object identity, facts, relations, state and next actions.
+RULE.005:: Do not invent missing values.
+RULE.006:: Preserve unknown or unresolved information as unknown or unresolved.
+RULE.007:: Preserve historical information when a newer value supersedes it.
+RULE.008:: Keep verified, memory-only, interpretation and conjecture distinct when the file defines such categories.
+RULE.009:: Use source references when the file supplies them.
+RULE.010:: Continue the project from its current state; do not restart it.
+RULE.011:: When writing a new AHM file, keep the same local language unless there is a clear reason to extend it.
+RULE.012:: If a local extension is added, define it inside the file before using it.
+RULE.013:: A normal AHM file must be understandable from the file itself.
+RULE.014:: A separate parser, validator, server, database or external manual must not be required for basic AI understanding.
+RULE.015:: External tools may be used for validation, search, rendering or storage, but they are supporting tools rather than the definition of AHM.
+
+CORE PRINCIPLE::
+THE FILE TEACHES THE AI HOW TO READ THE FILE.
+
+======================================================================
+2. WHAT AHM IS
+======================================================================
+
+AHM is a self-describing structured plain-text language for AI systems.
+
+Its primary reader is an AI capable of interpreting the file's own instructions, definitions, relationships and context.
+
+The purpose of AHM is to carry enough structure, meaning, relationships, state and continuation information inside one file that another AI can:
+
+1. understand what the file describes,
+2. reconstruct the current project or knowledge state,
+3. distinguish known, unknown and qualified information,
+4. follow relationships,
+5. determine what remains to be done,
+6. continue the work,
+7. write a new compatible AHM file.
+
+AHM is not primarily a database format.
+AHM is not primarily a programming language.
+AHM is not primarily a serialization syntax.
+
+AHM is an AI-readable information structure expressed in compact plain text.
+
+AHM gives the AI a map of the information instead of a wall of prose.
+The structure shows where meaning is, how important things connect, what is current, what is uncertain, and what comes next.
+
+The text representation is deliberately simple.
+Most characters should carry meaning rather than serialization overhead.
+AHM removes unnecessary linguistic clutter while preserving the meaning required to reconstruct and continue the task.
+
+STRUCTURE GUIDES THE AI.
+LANGUAGE CARRIES THE MEANING.
+KEEP THE MEANING. REMOVE THE FLUFF.
+
+JSON, XML, databases, graphs or binary representations may be generated from AHM when software requires them.
+They are derived representations.
+The normal AHM file remains readable directly by an AI.
+
+======================================================================
+2A. INTENDED USE AND SCOPE
+======================================================================
+
+AHM is designed primarily for AI systems that can interpret meaning, context, local definitions and relationships directly from the file.
+
+AHM is NOT intended to replace:
+- relational databases,
+- document databases,
+- graph databases,
+- JSON APIs,
+- XML schemas,
+- deterministic machine-to-machine interchange formats.
+
+Traditional data formats are better when ordinary software must parse every field identically without interpretation.
+
+AHM is intended for a different problem:
+
+HOW CAN ONE AI RECEIVE A FILE, UNDERSTAND THE MEANING AND CURRENT STATE OF A PROJECT OR KNOWLEDGE OBJECT, AND CONTINUE THE WORK WITHOUT REQUIRING A LARGE EXTERNAL SYSTEM?
+
+AHM therefore relies deliberately on capabilities that modern AI systems already possess:
+- language understanding,
+- contextual interpretation,
+- relation understanding,
+- local vocabulary learning,
+- reconstruction of incomplete but structured context,
+- semantic reasoning.
+
+A normal AHM file is expected to be understandable by a capable AI from the file itself.
+
+Machine parsers, validators, indexes and database exports may still be useful, but they are optional support tools.
+
+They must not redefine the primary purpose of AHM.
+
+PRIMARY CONSUMER:: AI_SYSTEM
+PRIMARY TASK:: SEMANTIC_HANDOFF_AND_CONTINUATION
+PRIMARY REPRESENTATION:: SELF_DESCRIBING_STRUCTURED_PLAIN_TEXT
+DATABASE_ROLE:: OPTIONAL_DERIVED_STORAGE_OR_INDEX
+PARSER_ROLE:: OPTIONAL_TOOLING
+EXTERNAL_SCHEMA_REQUIREMENT:: NONE_FOR_BASIC_AI_INTERPRETATION
+
+CORE DISTINCTION::
+
+AHM is not designed so that a traditional parser can understand every possible AHM file without interpretation.
+
+AHM is designed so that an AI can understand the file because the file explains its own local structure and meaning.
+
+======================================================================
+2B. THE MAP PRINCIPLE — REMOVE STEPS 1 AND 2
+======================================================================
+
+A capable AI receiving ordinary prose often has to perform three broad stages before producing a useful result.
+
+STEP 1 — ORIENTATION
+Determine what the material is about.
+
+STEP 2 — STRUCTURING
+Determine:
+- what matters;
+- which entities exist;
+- how they relate;
+- what is current;
+- what is historical;
+- what is uncertain;
+- what remains unresolved;
+- what should happen next.
+
+STEP 3 — REASON / ACT / ANSWER
+Use that reconstructed structure to perform the actual task.
+
+AHM is designed to perform much of STEP 1 and STEP 2 in advance.
+
+DESCRIPTION + INSTRUCTIONS + KEY
+provide orientation.
+
+OBJECTS + FACTS + RELATIONS + STATUS + STATE + NEXT
+provide the working map.
+
+VALIDATION
+provides local checks on how the map should be used.
+
+The AI still reads and interprets the file.
+The AI still reasons.
+
+But it does not first have to reconstruct the entire information architecture from a wall of prose.
+
+AHM REMOVES THE NEED FOR THE AI TO FIRST BUILD THE MAP.
+THE MAP IS ALREADY THERE.
+
+This is one reason AHM can reduce linguistic clutter without removing meaning.
+
+The objective is not merely fewer words.
+The objective is less unnecessary reconstruction before useful AI work begins.
+
+======================================================================
+3. DEFAULT READ ORDER
+======================================================================
+
+READ_ORDER:: INSTRUCTION → DESCRIPTION → SPEC/FIELD_DICTIONARY → KEY → DOMAIN_DATA → RELATIONS → STATE/VALIDATION → NEXT → INFORMATION_BANK
+
+Not every file requires every section.
+
+A domain may use a more specific read order, as long as the file declares it.
+
+Example:
+
+READ_ORDER:: INSTRUCTION → SPEC → FIELD_DICTIONARY → KEY → BOOK_INDEX → RELATIONS → THEMES → ENTITY_INDEX → VALIDATION → NEXT
+
+The declared READ_ORDER takes precedence over the generic order.
+
+======================================================================
+4. CORE SECTIONS
+======================================================================
+
+INSTRUCTION
+Defines how the AI should read, reconstruct and continue the file.
+
+DESCRIPTION
+States what the project, corpus, system or knowledge object is.
+
+SPEC
+Explains local structure when the file needs domain-specific rules.
+
+FIELD_DICTIONARY
+Defines compact field names, codes or positions.
+
+KEY
+Defines abbreviations and compressed semantic terms.
+
+DOMAIN_DATA
+Contains the actual project, corpus, system or knowledge content.
+The section name may be domain-specific, for example:
+MEMORY
+BOOK_INDEX
+OBJECT_INDEX
+ENTITY_REGISTER
+COMPONENTS
+EVENTS
+TABLES
+THEMES
+
+RELATIONS
+Connects objects, entities, passages, events, components, facts or concepts.
+
+STATE
+Describes the current condition of the project or its parts.
+
+VALIDATION
+Defines checks, source controls, uncertainty rules or interpretation controls.
+
+NEXT
+States what should happen next.
+
+INFORMATION_BANK
+Carries uncompressed supporting information when needed for recovery, audit or deeper interpretation.
+
+======================================================================
+5. KEY
+======================================================================
+
+KEY is the local dictionary of an AHM file.
+
+It may define:
+
+- object classes,
+- fact codes,
+- relation types,
+- status markers,
+- source markers,
+- abbreviations,
+- domain terms,
+- compact instructions.
+
+Example:
+
+KEY
+P = PROJECT
+O = OBJECT
+F = FACT
+R = RELATION
+S = STATE
+N = NEXT
+V = VERIFIED
+M = MEMORY_ONLY
+U = UNRESOLVED
+SRC = SOURCE
+OLD = HISTORICAL_OR_SUPERSEDED
+CUR = CURRENT
+
+A KEY may be small or large.
+
+The rule is simple:
+
+IF A COMPACT CODE IS NOT OBVIOUS,
+DEFINE IT BEFORE REQUIRING THE AI TO USE IT.
+
+======================================================================
+6. FIELD DICTIONARY
+======================================================================
+
+A FIELD_DICTIONARY is used when compact fields need explicit meaning.
+
+Example:
+
+FIELD FUNCTION
+F1::NODE_ID
+F2::TITLE
+F3::STATUS
+F4::SOURCE
+F5::NOTE
+
+A domain may create its own field codes.
+
+Example from a textual corpus:
+
+F201::PASSAGE_ID
+F202::BOOK_CANON_NUM
+F203::CHAPTER_NUM
+F204::VERSE_NUM
+F205::TEXT_RAW
+F206::TEXT_ORIGINAL_LANGUAGE
+F207::INTERTEXT_TYPE
+F208::TARGET_PASSAGE_ID
+
+A field dictionary is descriptive.
+It exists so that an AI can decode the compact structure locally.
+
+======================================================================
+7. OBJECTS AND IDENTITY
+======================================================================
+
+Objects should have stable IDs when the file needs to refer to them more than once.
+
+Example:
+
+O:CTRL4:Controller
+O:BAT4:Battery
+O:SOL4:Solar_Array
+
+The ID is the stable identity.
+The label may be human-readable.
+
+Stable identity allows facts, relations, state and changes to point to the same object without repeating its full description.
+
+For large knowledge files, object classes may be domain-specific:
+
+PERSON::
+PLACE::
+INSTITUTION::
+SYMBOL::
+EVENT::
+SOURCE::
+COMPONENT::
+BOOK::
+PASSAGE::
+
+The file should define any class whose meaning may be unclear.
+
+======================================================================
+8. FACTS
+======================================================================
+
+A fact is a statement about an object, project or knowledge item.
+
+Example:
+
+F:BAT4:NOMINAL_VOLTAGE=24V:V:SRC_ELEC
+
+Possible interpretation:
+
+F
+object = BAT4
+property = NOMINAL_VOLTAGE
+value = 24V
+status = V
+source = SRC_ELEC
+
+A file may use a different fact pattern if its KEY or FIELD_DICTIONARY explains it.
+
+AHM does not require every fact to have the same number of fields in every domain.
+The local file defines the form it uses.
+
+Important distinctions should be preserved.
+
+Example:
+
+F:BAT4:USABLE_CAPACITY=140Ah:OLD:SRC_PLAN
+F:BAT4:USABLE_CAPACITY=128Ah:CUR:V:SRC_BATTERY_TEST
+
+The historical value remains available.
+The current value is unambiguous.
+
+======================================================================
+9. RELATIONS
+======================================================================
+
+Relations are explicit links between identified things.
+
+Simple example:
+
+R:BAT4>CTRL4:POWERS
+R:SOL4>BAT4:CHARGES
+R:TEMP4>CTRL4:SENDS_DATA_TO
+
+The direction is meaningful.
+
+SOURCE > TARGET : RELATION_TYPE
+
+Large domains may define compressed relation keys.
+
+Example:
+
+RELKEY.201:: INTERTEXTUAL_ECHO({SRC}, {TG}, {TYPE})
+ => REL.ECHO:: FROM::{SRC} | TO::{TG} | TYPE::{TYPE}
+
+RELKEY.202:: GENEALOGY_LINK({ANC}, {DESC}, {LINE})
+ => REL.GEN:: FROM::{ANC} | TO::{DESC} | LINE::{LINE}
+
+The purpose of RELKEY is semantic compression:
+a short expression expands into a richer relation pattern that the AI can reconstruct.
+
+A relation vocabulary is local unless a profile declares it shared.
+
+======================================================================
+10. STATUS, UNCERTAINTY AND INTERPRETATION
+======================================================================
+
+AHM should preserve epistemic differences instead of flattening all statements into "facts".
+
+A file may define status markers such as:
+
+V = VERIFIED
+M = MEMORY_ONLY
+U = UNRESOLVED
+
+A textual or research domain may define categories such as:
+
+TEXTUAL_FACT
+INTERPRETATION
+TRADITION
+CONJECTURE
+CLAIMED
+DISPUTED
+
+These categories are not automatically interchangeable.
+
+RULE::
+Do not upgrade a weaker status to a stronger status without evidence.
+
+Examples:
+
+F:SPARE_FILTER:LOCATION=SHELF_C2:M:SRC_TECH_MEMORY
+F:SPARE_FILTER:BATCH_NUMBER=:U
+
+The first statement is remembered but unverified.
+The second value is unknown.
+
+Unknown is better than invented.
+
+======================================================================
+11. SOURCES AND VALIDATION
+======================================================================
+
+Sources may be referenced compactly in MEMORY or FACT records and described more fully elsewhere.
+
+Example:
+
+SOURCE SRC_ELEC
+Title: Electrical Drawing Revision B
+Date: 2026-09-12
+
+VALIDATION may contain domain-specific controls.
+
+Examples:
+
+RULE:: Preserve chapter and verse references.
+RULE:: Compare parallel passages before declaring contradiction.
+RULE:: Numerical patterns require reproducible counting rules.
+RULE:: Verify original-language lexicon before language-dependent conclusions.
+
+In engineering:
+
+RULE:: Do not mark a qualification step complete without its test result.
+RULE:: Keep obsolete values when a new verified value replaces them.
+RULE:: Do not infer a serial number that is absent from the source.
+
+Validation rules travel with the file when they are necessary for correct interpretation.
+
+======================================================================
+12. STATE
+======================================================================
+
+STATE records the current condition of a project or object.
+
+Example:
+
+S:CTRL4=INSTALLED_AND_CONFIGURED
+S:PUMP4=INSTALLED_FLOW_TEST_PENDING
+S:PROJECT=QUALIFICATION_IN_PROGRESS_NOT_RELEASED
+
+STATE is about what is true now.
+
+Historical facts may remain in the file even when STATE has changed.
+
+Example:
+
+before:
+S:PUMP4=INSTALLED_FLOW_TEST_PENDING
+
+after verified test:
+S:PUMP4=INSTALLED_AND_FLOW_TEST_PASSED
+
+The previous project history may remain elsewhere in the file or information bank.
+
+======================================================================
+13. NEXT
+======================================================================
+
+NEXT tells the receiving AI what remains to be done.
+
+Example:
+
+N:COMPLETE_FLOW_TEST
+N:COMPLETE_MODEM_RANGE_TEST
+N:COMPLETE_ENDURANCE_TEST
+N:REVIEW_EVIDENCE
+N:APPROVE_OR_REJECT_DEPLOYMENT
+
+When an action is completed, the new AHM file should normally remove it from NEXT and update the corresponding facts or state.
+
+NEXT is one of the main mechanisms for project continuity.
+
+A project should not restart when the AI changes.
+A project should continue.
+
+======================================================================
+14. INFORMATION BANK
+======================================================================
+
+INFORMATION_BANK is optional supporting detail.
+
+It may contain:
+
+- source descriptions,
+- long notes,
+- uncompressed explanations,
+- recovery information,
+- raw excerpts,
+- domain context,
+- provenance details,
+- material that would be inefficient to encode repeatedly in compact form.
+
+The compact AHM structure should point to the Information Bank when deeper detail is needed.
+
+The Information Bank does not replace KEY, RELATIONS, STATE or NEXT.
+It supports them.
+
+======================================================================
+15. DOMAIN-SPECIFIC STRUCTURE
+======================================================================
+
+AHM is designed to adapt to the domain.
+
+A Bible corpus may use:
+
+BOOK_INDEX
+THEME_INDEX
+ENTITY_REGISTER
+RELKEY
+PASSAGE_ID
+INTERTEXTUAL_ECHO
+PROPHECY_TRACK
+GENEALOGY_LINK
+COVENANT_BOUND
+GEO_SCENE
+
+An engineering project may use:
+
+COMPONENTS
+FACTS
+RELATIONS
+TESTS
+STATE
+NEXT
+SOURCES
+
+A research project may use:
+
+CLAIMS
+EVIDENCE
+COUNTEREVIDENCE
+METHODS
+RESULTS
+OPEN_QUESTIONS
+NEXT
+
+The names may differ.
+The principle remains:
+
+DEFINE THE LOCAL LANGUAGE INSIDE THE FILE.
+
+======================================================================
+15A. THREE COMMON AHM USAGE PATTERNS
+======================================================================
+
+AHM keeps the same core idea while allowing different domains to expose different structures.
+
+PROJECT / CONTINUATION AHM
+Used when an AI must reconstruct current project state and continue work.
+
+Typical structure:
+
+INSTRUCTIONS
+DESCRIPTION
+KEY
+MEMORY
+RELATIONS
+STATE
+NEXT
+INFORMATION_BANK
+
+DATA-ONLY AHM
+Used when the primary task is to carry structured scientific, technical or reference data.
+
+Typical structure:
+
+FIELD_DICTIONARY
+STATUS_CODES
+DATA / ROWS
+RELATION_DICTIONARY
+RELATIONS
+
+A data-only AHM file does not need NEXT or project instructions when its field dictionary, status codes and relation dictionary make the dataset sufficiently understandable.
+
+REASONING / KNOWLEDGE AHM
+Used when the file must guide how an AI follows evidence, interpretation, authority, relations or domain rules.
+
+Typical structure:
+
+INSTRUCTIONS
+KEY / STATUS_HIERARCHY
+OBJECTS
+RELATIONS
+INDEX
+VALIDATION
+CONCLUSION
+
+A reasoning AHM may add local concepts such as authority tiers, interpretation status, evidence strength, reasoning routes or domain-specific checks.
+
+These patterns are examples, not separate languages.
+
+The invariant remains:
+
+DEFINE THE LOCAL LANGUAGE INSIDE THE FILE.
+STRUCTURE GUIDES THE AI.
+LANGUAGE CARRIES THE MEANING.
+
+======================================================================
+16. SELF-DESCRIPTION
+======================================================================
+
+A normal AHM file should contain enough information for a capable AI to infer:
+
+- what the file is,
+- how to read it,
+- what its codes mean,
+- what the major objects are,
+- what relations exist,
+- what information is current,
+- what information is uncertain,
+- what sources exist,
+- what remains to be done.
+
+The file may accomplish this with:
+
+INSTRUCTION
+READ_ORDER
+SPEC
+FIELD_DICTIONARY
+KEY
+RELKEY
+section names
+examples
+validation rules
+
+No external schema should be necessary for basic understanding.
+
+======================================================================
+16A. AHM IMAGE-AI CONTROL
+======================================================================
+
+AHM can also be used as a control language for image-generation systems.
+
+The goal is not to make image generation part of the AHM Core.
+The goal is to use the same self-describing AHM principles to tell an image AI exactly what a scene, object, layout or technical drawing is supposed to contain.
+
+The AHM language remains simple.
+The image-control file may become as detailed as the task requires.
+
+CORE IDEA::
+
+THE FORMAT STAYS SMALL.
+THE CONTROL DESCRIPTION MAY BE LARGE.
+
+An image AHM may define:
+
+- required objects,
+- exact counts,
+- object identities,
+- object properties,
+- spatial relations,
+- composition,
+- camera/viewpoint,
+- geometry,
+- text and labels,
+- formulas,
+- colors,
+- material properties,
+- forbidden elements,
+- rendering style,
+- locked elements,
+- allowed changes,
+- verification checks.
+
+A simple image-control structure may look like:
+
+INSTRUCTIONS
+DESCRIPTION
+KEY
+OBJECTS
+RELATIONS
+COMPOSITION
+CONSTRAINTS
+LOCKED
+VERIFY
+OUTPUT
+
+Example:
+
+INSTRUCTIONS
+Create the image from the structure below.
+Treat this AHM file as the source of truth.
+Do not invent additional primary objects.
+After generation, verify exact counts and required relations.
+
+DESCRIPTION
+Scene: Technical workshop bench
+
+KEY
+O = OBJECT
+R = RELATION
+C = CONSTRAINT
+L = LOCKED
+V = VERIFY
+
+OBJECTS
+O:G1:Gear
+O:G2:Gear
+O:G3:Gear
+O:G4:Gear
+O:G5:Gear
+
+RELATIONS
+R:G1>G2:MESHES_WITH
+R:G2>G3:MESHES_WITH
+R:G3>G4:MESHES_WITH
+R:G4>G5:MESHES_WITH
+
+CONSTRAINTS
+C:GEAR_COUNT=5
+C:NO_EXTRA_GEARS
+C:ALL_FIVE_GEARS_VISIBLE
+
+VERIFY
+V:COUNT_GEARS=5
+V:CHECK_RELATION_CHAIN=G1>G2>G3>G4>G5
+
+This is still AHM:
+the local language is defined inside the file,
+the objects have identities,
+the relations are explicit,
+the constraints are readable,
+and the AI can reconstruct the intended scene.
+
+----------------------------------------------------------------------
+IMAGE CONTROL LAYERS
+----------------------------------------------------------------------
+
+For difficult image tasks, the control description may use several independent layers:
+
+SEMANTIC_BINDING
+What each object is.
+
+RELATIONAL_BINDING
+How objects connect, align, contain, touch, face, follow or depend on one another.
+
+GEOMETRIC_BINDING
+Shape, proportions, dimensions, orientation and placement.
+
+CANVAS_BINDING
+Overall layout, framing, viewpoint, image regions and scale.
+
+NEGATIVE_CONSTRAINTS
+What must not appear or what must not change.
+
+RENDERING_LOCKS
+Elements already approved and therefore protected from creative reinterpretation.
+
+VERIFICATION
+Checks performed after generation.
+
+A useful control stack is:
+
+SEMANTIC_BINDING
++ RELATIONAL_BINDING
++ GEOMETRIC_BINDING
++ CANVAS_BINDING
++ NEGATIVE_CONSTRAINTS
++ RENDERING_LOCKS
++ VERIFY
+
+Not every image requires every layer.
+
+----------------------------------------------------------------------
+LOCKED MASTER WORKFLOW
+----------------------------------------------------------------------
+
+When an image has already been approved, it may be treated as a LOCKED MASTER.
+
+Recommended workflow:
+
+ORIENTATION
+Identify the task and current image state.
+
+LOCKED_INPUT
+Identify the latest approved image or specification.
+
+REQUESTED_ACTION
+State only the requested change.
+
+CONSTRAINTS
+State what must remain unchanged.
+
+EXECUTE
+Perform the change.
+
+VERIFY
+Check the result against the AHM control file.
+
+OUTPUT
+Return only the verified result.
+
+RULE::
+DO NOT REGENERATE A WHOLE APPROVED IMAGE WHEN ONLY A SMALL CONTROLLED CHANGE IS REQUIRED, IF THE TOOLCHAIN SUPPORTS LOCAL EDITING.
+
+Text, formulas, labels and signatures may be treated as separate exact layers when the workflow allows it.
+
+----------------------------------------------------------------------
+IMAGE-AI VERIFICATION
+----------------------------------------------------------------------
+
+Image generation is probabilistic.
+An AHM control file can strongly constrain the task, but it does not guarantee that an image model will obey every count, relation, label or geometric requirement.
+
+Therefore image AHM should separate:
+
+REQUEST
+what the image AI was asked to produce,
+
+from:
+
+VERIFY
+what the resulting image actually contains.
+
+Typical verification checks:
+
+V:OBJECT_COUNT
+V:REQUIRED_OBJECTS_PRESENT
+V:FORBIDDEN_OBJECTS_ABSENT
+V:RELATIONS_CORRECT
+V:TEXT_CORRECT
+V:FORMULAS_CORRECT
+V:SYMMETRY_CORRECT
+V:COMPOSITION_CORRECT
+V:LOCKED_ELEMENTS_UNCHANGED
+
+A generated image should not be treated as compliant merely because the prompt was correct.
+
+----------------------------------------------------------------------
+FULL-FILE IMAGE CONTROL
+----------------------------------------------------------------------
+
+For high-constraint tasks, the complete AHM image-control file should be used as the operative source of truth whenever the image system can accept it.
+
+Avoid reducing a detailed AHM control file to a short creative summary if exact structure matters.
+
+The purpose of AHM image control is to preserve the structured intent:
+
+DEFINE ONCE
+→ BIND OBJECTS
+→ BIND RELATIONS
+→ BIND CONSTRAINTS
+→ GENERATE
+→ VERIFY
+
+The image AI may still be creative inside unspecified regions.
+The AHM file controls the regions that matter.
+
+----------------------------------------------------------------------
+IMAGE CONTROL IS AN OPTIONAL DOMAIN
+----------------------------------------------------------------------
+
+Image-AI control is an application of AHM, not a mandatory part of every AHM file.
+
+A legal AHM file does not need image fields.
+A scientific AHM file does not need composition rules.
+A project-memory AHM file does not need geometric constraints.
+
+The Core remains small.
+
+The domain file supplies the complexity only when the task needs it.
+
+======================================================================
+17. SEMANTIC COMPRESSION
+======================================================================
+
+AHM compresses meaning rather than merely compressing characters.
+
+Example:
+
+R:BAT4>CTRL4:POWERS
+
+is short because the file already defines:
+
+R = RELATION
+BAT4 = battery object
+CTRL4 = controller object
+POWERS = relation type
+
+The AI reconstructs the larger meaning from the local structure.
+
+Another example:
+
+RELKEY.203:: GENEALOGY_LINK({ANC}, {DESC}, {LINE})
+
+can represent a repeatable family-relation pattern without rewriting its full meaning every time.
+
+Semantic compression works only when the key remains available.
+
+Therefore:
+
+THE DICTIONARY TRAVELS WITH THE DATA.
+
+======================================================================
+18. SIMPLE CONTINUATION PROCEDURE
+======================================================================
+
+When an AI receives an AHM file:
+
+STEP.001:: Read INSTRUCTION and READ_ORDER.
+STEP.002:: Decode KEY, FIELD_DICTIONARY and RELKEY.
+STEP.003:: Identify the project or knowledge domain.
+STEP.004:: Reconstruct stable objects and relations.
+STEP.005:: Read facts and preserve their status.
+STEP.006:: Read current STATE.
+STEP.007:: Read NEXT.
+STEP.008:: Use INFORMATION_BANK if deeper detail is needed.
+STEP.009:: Apply new information.
+STEP.010:: Preserve history when values are superseded.
+STEP.011:: Do not invent missing information.
+STEP.012:: Produce a new AHM file using the same local language.
+STEP.013:: Update STATE and NEXT so the next AI can continue.
+
+======================================================================
+19. MINIMAL AHM EXAMPLE
+======================================================================
+
+INSTRUCTIONS
+Read KEY.
+Reconstruct the project.
+Apply UPDATE.
+Return one updated AHM file.
+
+DESCRIPTION
+Project: SENSOR-1
+Phase: Qualification
+
+KEY
+O = OBJECT
+F = FACT
+R = RELATION
+S = STATE
+N = NEXT
+V = VERIFIED
+U = UNRESOLVED
+
+MEMORY
+O:CTRL:Controller
+O:BAT:Battery
+
+R:BAT>CTRL:POWERS
+
+F:BAT:NOMINAL_VOLTAGE=24V:V
+F:BAT:SERIAL_NUMBER=:U
+
+S:CTRL=INSTALLED
+S:BAT=INSTALLED
+S:PROJECT=QUALIFICATION
+
+N:VERIFY_BATTERY_CAPACITY
+
+UPDATE
+Battery capacity test passed.
+Verified usable capacity: 120Ah.
+
+EXPECTED BEHAVIOR
+The receiving AI should preserve the existing project,
+add the verified capacity,
+keep the unknown serial number unresolved,
+update state if appropriate,
+and remove the completed battery-capacity task from NEXT.
+
+No separate manual is required to understand the example.
+
+======================================================================
+20. LARGE AHM FILES
+======================================================================
+
+Large AHM files should remain navigable.
+
+Recommended mechanisms:
+
+READ_ORDER
+numbered sections
+KEY
+FIELD_DICTIONARY
+RELKEY
+INDEX sections
+stable IDs
+THEME or DOMAIN indexes
+VALIDATION
+NEXT
+
+A large AHM file does not need to become a rigid database schema.
+
+Structure should increase only when it reduces ambiguity or improves continuation.
+
+RULE::
+DO NOT ADD STRUCTURE THAT DOES NOT HELP THE AI.
+
+======================================================================
+21. COMPATIBILITY
+======================================================================
+
+Two AHM files may use different domain vocabularies and still be compatible with the AHM language if both are self-describing.
+
+Compatibility depends primarily on preserving:
+
+- local definitions,
+- identities,
+- relationships,
+- statuses,
+- sources,
+- state,
+- continuation logic.
+
+A receiving AI should not require every AHM file to use one universal field list.
+
+Profiles may exist for repeated domains.
+A profile is a reusable local language, not a requirement that all AHM files become identical.
+
+======================================================================
+22. TOOLS
+======================================================================
+
+Parsers, validators, databases, graph engines and converters may be useful.
+
+They can:
+
+- check syntax,
+- detect broken references,
+- build indexes,
+- produce graph views,
+- convert AHM to JSON,
+- store AHM in databases,
+- compare versions.
+
+But the basic test of AHM remains:
+
+CAN A CAPABLE AI READ ONE SELF-DESCRIBING AHM FILE
+AND CONTINUE THE WORK CORRECTLY?
+
+If yes, the central AHM mechanism is functioning.
+
+A successful database import or parser validation is useful tooling,
+but it is not the defining success criterion for AHM.
+
+======================================================================
+22A. CORE PARSER MODEL
+======================================================================
+
+AHM may use an optional Core parser.
+
+The parser is not the intelligence of AHM and is not required for an AI to understand a normal AHM file.
+
+Its role is narrower:
+
+PARSE THE CORE.
+PRESERVE THE REST.
+LET THE AI INTERPRET LOCAL SEMANTICS.
+
+A Core parser may recognize common AHM structures such as:
+
+INSTRUCTIONS
+DESCRIPTION
+KEY
+FIELD_DICTIONARY
+OBJECTS
+FACTS
+RELATIONS
+STATE
+NEXT
+SOURCES
+VALIDATION
+
+and common compact records such as:
+
+P:PROJECT_ID
+O:OBJECT_ID:LABEL
+F:SUBJECT:PROPERTY=VALUE[:TAG...]
+R:SOURCE>TARGET:RELATION_TYPE
+S:SUBJECT=STATE
+N:NEXT_ACTION
+K:KNOWLEDGE_STATEMENT
+A:ACTION
+
+Local constructs remain valid even when the parser does not understand their domain meaning.
+
+Examples:
+
+RELKEY.203::GENEALOGY_LINK(...)
+TIER_2_VAGLEDANDE
+GEOMETRIC_BINDING
+PROPHECY_TRACK
+THEME_INDEX
+
+A tolerant parser should preserve unknown local constructs rather than reject them.
+
+This allows AHM to support both:
+
+MACHINE TOOLING
+- indexing
+- search
+- diff
+- duplicate-ID checks
+- known-reference checks
+- export to other formats
+
+and:
+
+AI INTERPRETATION
+- local semantics
+- domain-specific rules
+- reasoning guidance
+- image constraints
+- legal hierarchies
+- research conventions
+
+The parser serves AHM.
+AHM is not designed around the parser.
+
+======================================================================
+23. DESIGN PRINCIPLES
+======================================================================
+
+PRINCIPLE.001:: SELF_DESCRIBING
+The file carries its own reading instructions and local vocabulary.
+
+PRINCIPLE.002:: AI_FIRST
+The structure is optimized for AI comprehension and continuation.
+
+PRINCIPLE.003:: PLAIN_TEXT
+The normal representation uses simple text with minimal structural noise.
+
+PRINCIPLE.004:: SEMANTIC_COMPRESSION
+Meaning is compressed through keys, stable identities and reusable relations.
+
+PRINCIPLE.005:: EXPLICIT_RELATIONS
+Important connections are written explicitly.
+
+PRINCIPLE.006:: EPISTEMIC_DISCIPLINE
+Verified, memory-only, unresolved, interpreted and conjectural information are not silently merged.
+
+PRINCIPLE.007:: CONTINUITY
+STATE and NEXT allow the project to continue across AI systems.
+
+PRINCIPLE.008:: HISTORY_PRESERVATION
+Superseded information may remain available rather than being silently overwritten.
+
+PRINCIPLE.009:: LOCAL_EXTENSIBILITY
+A domain can introduce new fields, relation keys or indexes by defining them inside the file.
+
+PRINCIPLE.010:: NO_UNNECESSARY_INFRASTRUCTURE
+Basic understanding does not depend on external servers, databases or proprietary runtimes.
+
+PRINCIPLE.011:: SIMPLE_BEFORE_FORMAL
+Add formal structure only when it produces a clear practical benefit.
+
+PRINCIPLE.012:: SIMPLE_CORE_EXTENSIBLE_CONTROL
+Keep the AHM language small while allowing a domain file to describe as many local rules, relations, constraints and verification checks as the task requires.
+
+PRINCIPLE.013:: MAP_NOT_PROSE
+Give the AI a map of the information. Preserve meaning, relationships, state and continuation while removing unnecessary linguistic clutter.
+
+PRINCIPLE.014:: CORE_PARSEABLE_LOCAL_INTERPRETABLE
+Common AHM structures may be machine-parsed, while local extensions remain self-described and AI-interpretable. Unknown local constructs should be preserved rather than rejected.
+
+======================================================================
+24. REFERENCE MODEL
+======================================================================
+
+The practical AHM pattern is:
+
+INSTRUCTION
+    ↓
+SPEC / FIELD_DICTIONARY
+    ↓
+KEY
+    ↓
+OBJECTS / INDEX / DOMAIN DATA
+    ↓
+RELATIONS
+    ↓
+STATUS / STATE / VALIDATION
+    ↓
+NEXT
+    ↓
+INFORMATION_BANK when needed
+
+The names of domain sections may change.
+
+The invariant is that the file contains enough local meaning for the AI to reconstruct the whole.
+
+======================================================================
+25. FINAL RULE
+======================================================================
+
+AHM should remain simple enough that a capable AI can receive one file, understand it, update it and hand the result to another AI.
+
+If an AHM design requires a large external manual merely to interpret an ordinary file, the design has become too complicated.
+
+THE FILE TEACHES THE AI HOW TO READ THE FILE.
+
+END OF THE AHM LANGUAGE
